@@ -12,6 +12,9 @@
 #define  LED_2              8
 #define  LED_3              9
 
+/*
+ SPI Pin: 10 (SS), 11 (MOSI), 12 (MISO), 13 (SCK)
+*/
 #define  SSPin              10
 
 #define  StartBit           B10000000
