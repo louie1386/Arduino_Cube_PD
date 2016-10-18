@@ -1,39 +1,31 @@
 void Timer_setup() {
   timer.every(100, Timer_ADC);
-  timer.every(10, Timer_RXD);
-  timer.every(1000, Timer_Button);
-  for (int i = 0; i < Wellnum; i++)
-    TimeCounter[i] = 0;
+  //timer.every(10, Timer_RXD);
+  timer.every(1000, Timer_Sec);
 }
 
 void Timer_ADC() {
   for (int ch = 0; ch < Wellnum; ch++) {
+    ADCdata[ch * 2] = SPI_Read_channel(ChannelPin[ch * 2]);
+    ADCdata[ch * 2 + 1] = SPI_Read_channel(ChannelPin[ch * 2 + 1]);
     if (button[ch] == true) {
-      if (delaycounter[ch]) {
-        delaycounter[ch]--;
-        ADCdata[ch * 2] = ButtonDisableByte;
-        ADCdata[ch * 2 + 1] = ButtonDisableByte;
-      }
-      else {
-        ADCdata[ch * 2] = SPI_Read_channel(ch * 2);
-        ADCdata[ch * 2 + 1] = SPI_Read_channel(ch * 2 + 1);
-      }
+      ADCdata[ch * 2] += ButtonStatusByte;
+      ADCdata[ch * 2 + 1] += ButtonStatusByte;
     }
-    else {
-      ADCdata[ch * 2] = ButtonDisableByte;
-      ADCdata[ch * 2 + 1] = ButtonDisableByte;
-      delaycounter[ch] = ButtonDelay;
+    if (LEDonoff[ch] == true) {
+      ADCdata[ch * 2] += LEDStatusByte;
+      ADCdata[ch * 2 + 1] += LEDStatusByte;
     }
   }
   //Serial_log(ADCdata);
-  //Serial_Command(ADCdata, true);
+  Serial_Command(ADCdata, false);
 }
 
 void Timer_RXD() {
   RX_check();
 }
 
-void Timer_Button() {
+void Timer_Sec() {
   Button_Check();
   LED_Switch();
 }

@@ -5,7 +5,6 @@ void Button_setup() {
   pinMode(Button_3, INPUT);
   for (int i = 0; i < Wellnum; i++) {
     button[i] = false;
-    delaycounter[i] = ButtonDelay;
   }
 }
 

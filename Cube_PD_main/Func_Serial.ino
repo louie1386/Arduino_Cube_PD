@@ -1,5 +1,5 @@
 void Serial_setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   //Serial.println("Start/Reset");
 }
 
@@ -41,12 +41,6 @@ void RX_check() {
     RXD_buffer = Serial_RXD();
     if (RXD_buffer == command_tag) {
       Serial_Command(ADCdata, false);
-      for (int i = 0; i < Wellnum; i++) {
-        if (button[i] == true && TimeCounter[i] < DrawPointnum)
-          TimeCounter[i]++;
-        else if(button[i] == false)
-          TimeCounter[i] = 0;
-      }
     }
   }
 }

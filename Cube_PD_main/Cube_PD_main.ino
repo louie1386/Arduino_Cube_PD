@@ -17,12 +17,22 @@
 */
 #define  SSPin              10
 
+#define Well_0_A            7
+#define Well_0_B            4
+#define Well_1_A            1
+#define Well_1_B            6
+#define Well_2_A            3
+#define Well_2_B            0
+#define Well_3_A            5
+#define Well_3_B            2
+
 #define  StartBit           B10000000
 #define  baseBit            B10000
 #define  RangeSelectBits    B0110
 #define  ConvStartBits      B0000
 
-#define  ButtonDisableByte  0x8000
+#define  ButtonStatusByte   0x8000
+#define  LEDStatusByte      0x4000
 
 #define command_tag         char(0xAA)
 
@@ -31,13 +41,19 @@
 #define dataBytenum         Channelnum*2
 #define DrawPointnum        400
 
-#define ButtonDelay         2
+#define LED_EnableTimes     15
+#define LED_OffTimes        2
+#define LED_OnTimes         LED_EnableTimes - LED_OffTimes
+#define LED_CycleSec        60
+#define LED_OnSec           5
 
 Timer timer;
+int ChannelPin[Channelnum] = {Well_0_A, Well_0_B, Well_1_A, Well_1_B, Well_2_A, Well_2_B, Well_3_A, Well_3_B};
 unsigned int ADCdata[Channelnum];
-int TimeCounter[Wellnum];
 bool button[Wellnum];
-int delaycounter[Wellnum];
+int LED_SecCounter[Wellnum];
+int LED_OffTimesCounter[Wellnum];
+bool LEDonoff[Wellnum];
 
 void setup() {
   // put your setup code here, to run once:
