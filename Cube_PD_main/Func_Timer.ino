@@ -17,7 +17,6 @@ void Timer_ADC() {
       ADCdata[ch * 2 + 1] += LEDStatusByte;
     }
   }
-  //Serial_log(ADCdata);
   Serial_Command(ADCdata, false);
 }
 

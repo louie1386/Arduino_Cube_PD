@@ -42,8 +42,6 @@
 #define DrawPointnum        400
 
 #define LED_EnableTimes     15
-#define LED_OffTimes        2
-#define LED_OnTimes         LED_EnableTimes - LED_OffTimes
 #define LED_CycleSec        60
 #define LED_OnSec           5
 
@@ -54,6 +52,10 @@ bool button[Wellnum];
 int LED_SecCounter[Wellnum];
 int LED_OffTimesCounter[Wellnum];
 bool LEDonoff[Wellnum];
+
+bool  LEDEanbleType[LED_EnableTimes + 1] = {false, false, true, true, true, 
+                                            true, true, true, true, true, 
+                                            true, true, true, true, true, false};
 
 void setup() {
   // put your setup code here, to run once:
